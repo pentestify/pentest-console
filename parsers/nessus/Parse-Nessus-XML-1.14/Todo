@@ -1,0 +1,6 @@
+TODO list for Perl module Parse::Nessus::XML
+
+- Provide a smaller sample file in t/ so that the tests don't take so
+  long
+- Provide a useful API to the individual results.
+

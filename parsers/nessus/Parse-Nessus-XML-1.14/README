@@ -1,0 +1,67 @@
+NAME
+    Parse::Nessus::XML - Interface to Nessus XML result files
+
+SYNOPSIS
+      use Parse::Nessus::XML
+      my $scan = Parse::Nessus::XML->new( $filename );
+      my @results = $scan->results;
+
+      my $plugin  = $scan->plugin(10964); # Parse::Nessus::XML::Plugin object
+      my $name    = $plugin->name;
+
+DESCRIPTION
+    Provides an interface to the Nessus XML report file. This is primarily
+    for my own use, so if it's missing stuff that you think should be in
+    here, send me a patch.
+
+    Please note that this API is just a suggestion, and is subject to change
+    in the first few releases. Because of how deeply nested the data
+    structure is, there's no particularly nice API to the whole thing - at
+    least that I can think of. See the example script in the example/
+    subdirectory to see how I use this in real life.
+
+  new
+      my $scan = Parse::Nessus::XML->new( $filename );
+
+    Given the path to a file, returns a Parse::Nessus::XML object.
+
+  results
+        my $results = $scan->results; # listref
+        my @results = $scan->results; # list
+
+  plugin
+    Returns a plugin object, given the ID. Then you can call for attributes
+    off of that object.
+
+      my $plugin = $scan->plugin(10964);
+      $name = $plugin->name;
+      $risk = $plugin->risk;
+
+  package Parse::Nessus::XML::Plugin
+    Supplementary package which facilitates figuring out what's in a
+    particular plugin. Also allows location of a plugin by ID number, which
+    speeds things up.
+
+  Parse::Nessus::XML::Plugin->new
+      my $plugin = Parse::Nessus::XML::Plugin->new( $scan, ID => 10964 );
+      my $risk = $plugin->risk;
+
+    Available attributes are: id, name, version, family, cve_id, bugtraq_id,
+    category, risk, summary, copyright
+
+AUTHOR
+        Rich Bowen
+        CPAN ID: RBOW
+        rbowen@rcbowen.com
+        http://rich.rcbowen.com/
+
+COPYRIGHT
+    This program is free software; you can redistribute it and/or modify it
+    under the same terms as Perl itself.
+
+    The full text of the license can be found in the LICENSE file included
+    with this module.
+
+SEE ALSO
+    Parse::Nessus::NBE
+

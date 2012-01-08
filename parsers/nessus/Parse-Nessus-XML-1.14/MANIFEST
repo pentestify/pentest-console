@@ -1,0 +1,12 @@
+MANIFEST
+LICENSE
+README
+Todo
+Changes
+lib/Parse/Nessus/XML.pm
+t/001_load.t
+t/002_basics.t
+t/sample.xml
+Makefile.PL
+example/dump_xml.pl
+
